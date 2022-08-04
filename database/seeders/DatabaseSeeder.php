@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Listing;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(5)->create();
+        Listing::factory(6)->create();
+
+        /* Listing::create([
+            
+            'title' => 'First title',
+            'tags' => 'Laravel, PHP',
+            'company' => 'Rise of code',
+            'location' => 'Kathmandu',
+            'email' => 'email@gmail.com',
+            'website' => 'https://www.youtube.com',
+            'description' => 'Invidunt stet est dolor elitr erat kasd sea stet vero clita, dolores erat sadipscing consetetur eos kasd clita, sit dolor.',
+        ]);
+
+        Listing::create([
+
+            'title' => 'second title',
+            'tags' => 'puthon, django',
+            'company' => 'ABC',
+            'location' => 'pokhara',
+            'email' => 'example@gmail.com',
+            'website' => 'https://www.facebook.com',
+            'description' => 'Invidunt stet est dolor elitr erat kasd sea stet vero clita, dolores erat sadipscing consetetur eos kasd clita, sit dolor.',
+        ]); */
     }
 }
