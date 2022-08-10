@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -23,6 +24,8 @@ class ListingController extends Controller
             'listing' => $listing
         ]);
     }
+
+   
 
     //show create form
     public function create(){
@@ -58,9 +61,15 @@ class ListingController extends Controller
         return view('listings.edit', ['listing' => $listing]);
     }
 
+  
+
     //update
     public function update(Request $request, Listing $listing)
     {
+        if($listing->user_id != auth()->id()){
+            abort(403, 'Unauthorized action');
+        }
+
         $formFields = request()->validate([
             'title' => 'required',
             'company' => ['required'],
@@ -82,15 +91,20 @@ class ListingController extends Controller
 
     //delete listings
     public function destroy(Listing $listing){
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'Unauthorized action');
+        }
         $listing->delete();
         return redirect('/')->with('message','Listing deleted successfully');
     }
-
     //Manage listings
-    public function manage(){
-        return view('listings.manage',[
-            'listings' => auth()->user()->listings()->get()
+    public function manage()
+    {
+        return view('listings.manage', [
+            'listings' =>auth()->user()->listings()->get()
             
         ]);
     }
+
+   
 }
